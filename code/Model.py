@@ -1,4 +1,5 @@
 import File
+import Polygon
 from PyQt5.QtGui import QPolygon
 
 class Model:
@@ -70,6 +71,12 @@ class Model:
             self.updateCanvas()
             self.updateButton()
 
+        def changeColor(self, selected, color):
+            for i in selected:
+                self.polygons[i].setColor(color)
+            self.updateCanvas()
+            self.updateButton()
+
         def changeSelection(self, selected):
             self.points = []
             for i in selected:
@@ -79,7 +86,7 @@ class Model:
             self.updateCanvas()
 
         def getPolygon(self):
-            pol = QPolygon()
+            pol = Polygon.Polygon()
             for point in self.lastPoints:
                 pol.append(point)
             return pol
@@ -141,6 +148,9 @@ class Model:
 
     def delete(self, selected):
         self.instance.delete(selected)
+
+    def changeColor(self, selected, color):
+        self.instace.changeColor(selected, color)
 
     def changeSelection(self, selected):
         self.instance.changeSelection(selected)

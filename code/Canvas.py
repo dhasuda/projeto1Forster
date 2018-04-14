@@ -1,4 +1,5 @@
 import Model
+import Polygon
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter, QColor, QPolygon
 from PyQt5.QtCore import Qt
@@ -44,7 +45,7 @@ class Canvas(QWidget):
         qp.end()
 
     def getPolygon(self):
-        pol = QPolygon()
+        pol = Polygon.Polygon()
         for point in self.model.getLastPoints():
             pol.append(point)
         return pol
@@ -56,16 +57,11 @@ class Canvas(QWidget):
         qp.drawEllipse(x-radius, y-radius, 2*radius, 2*radius)
 
     def drawSelfPolygon(self, qp):
-        qp.setBrush(Qt.red)
+        qp.setBrush(self.polygon.getColor())
         qp.setPen(Qt.NoPen)
         qp.drawPolygon(self.polygon)
 
     def drawSinglePolygon(self, qp, pol):
-        qp.setBrush(Qt.blue)
+        qp.setBrush(pol.getColor())
         qp.setPen(Qt.NoPen)
         qp.drawPolygon(pol)
-
-    def drawTriangle(self, qp):
-        qp.setBrush(Qt.red)
-        qp.setPen(Qt.NoPen)
-        qp.drawPolygon(self.points)
