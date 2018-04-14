@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QPolygon
+import Polygon
 from PyQt5.QtCore import QPoint
 
 class File:
@@ -19,12 +19,12 @@ class File:
         file = open("multiPolygon.txt", "r")
         multiPol = []
         numberOfPoints = 0
-        pol = QPolygon()
+        pol = Polygon.Polygon()
         for line in file:
             if numberOfPoints == 0:
                 data = line.strip()
                 numberOfPoints = int(data)
-                pol = QPolygon()
+                pol = Polygon.Polygon()
             else:
                 data = line.strip().split(" ")
                 x = int(data[0])
