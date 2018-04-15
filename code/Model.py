@@ -82,6 +82,30 @@ class Model:
             self.updateButton()
             print("Color changed to" + "hsv("+str(self.selectedH)+","+str(self.selectedS)+","+str(self.selectedV)+")")
 
+        def getMediumColor(self, selected):
+            h = 0
+            s = 0
+            v = 0
+            for i in selected:
+                newH = self.polygons[i].getColor().hsvHue()
+                newS = self.polygons[i].getColor().hsvSaturation()
+                newV = self.polygons[i].getColor().lightness()
+                h += newH
+                s += newS
+                v += newV
+            h /= len(selected)
+            s /= len(selected)
+            v /= len(selected)
+            print(h)
+            print(s)
+            print(v)
+            newColor = QColor.fromHsvF(h/359.0, s/255.0, v/255.0)
+            for i in selected:
+                self.polygons[i].setColor(newColor)
+
+            self.updateCanvas()
+            self.updateButton()
+
         def changeSelection(self, selected):
             self.points = []
             for i in selected:
@@ -171,6 +195,8 @@ class Model:
     def changeColor(self, selected):
         self.instance.changeColor(selected)
 
+    def getMediumColor(self, selected):
+        self.instance.getMediumColor(selected)
 
     def changeSelection(self, selected):
         self.instance.changeSelection(selected)

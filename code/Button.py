@@ -47,6 +47,10 @@ class Button(QWidget):
         buttonButton.clicked.connect(self.changeColor)
         buttonButton.move(280, 190)
 
+        mediumButton = QPushButton('Medium color', self)
+        mediumButton.clicked.connect(self.mediumColor)
+        mediumButton.move(280, 220)
+
         self.list = QListWidget(self)
         self.list.move(10, 100)
         self.list.setSelectionMode(QAbstractItemView.MultiSelection)
@@ -98,6 +102,12 @@ class Button(QWidget):
         selected = [x.row() for x in self.list.selectedIndexes()]
         if len(selected) >= 1:
             self.model.changeColor(selected)
+
+    @pyqtSlot()
+    def mediumColor(self):
+        selected = [x.row() for x in self.list.selectedIndexes()]
+        if len(selected) >= 1:
+            self.model.getMediumColor(selected)
 
     def onListChage(self, current, previour):
         selected = [x.row() for x in self.list.selectedIndexes()]
