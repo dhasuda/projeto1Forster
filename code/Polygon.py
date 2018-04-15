@@ -2,7 +2,7 @@ from PyQt5.QtGui import QColor, QPolygon
 
 class Polygon(QPolygon):
 
-    def __init__(self, color=QColor.fromHsv(0, 0, 150)):
+    def __init__(self, color=QColor.fromHsvF(0, 0, 150/255)):
         QPolygon.__init__(self)
         self.color = color
 

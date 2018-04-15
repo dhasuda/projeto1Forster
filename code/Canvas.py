@@ -15,8 +15,8 @@ class Canvas(QWidget):
 
     def initUI(self):
         self.resize(500, 300)
-        self.move(300, 300)
-        self.setWindowTitle('Exercise 1')
+        self.move(500, 300)
+        self.setWindowTitle('Canvas')
 
         self.show()
 

@@ -1,6 +1,6 @@
 import File
 import Polygon
-from PyQt5.QtGui import QPolygon
+from PyQt5.QtGui import QColor, QPolygon
 
 class Model:
     class __Model:
@@ -9,7 +9,11 @@ class Model:
             self.points = []
             self.lastPoints = []
             self.canvas = None
+            self.colorPicker = None
             self.button = None
+            self.selectedH = 0
+            self.selectedS = 0
+            self.selectedV = 0
 
         def addPoint(self, point):
             self.points.append(point)
@@ -71,11 +75,12 @@ class Model:
             self.updateCanvas()
             self.updateButton()
 
-        def changeColor(self, selected, color):
+        def changeColor(self, selected):
             for i in selected:
-                self.polygons[i].setColor(color)
+                self.polygons[i].setColor(QColor.fromHsvF(self.selectedH, self.selectedS, self.selectedV))
             self.updateCanvas()
             self.updateButton()
+            print("Color changed to" + "hsv("+str(self.selectedH)+","+str(self.selectedS)+","+str(self.selectedV)+")")
 
         def changeSelection(self, selected):
             self.points = []
@@ -94,8 +99,16 @@ class Model:
         def setCanvas(self, canvas):
             self.canvas = canvas
 
+        def setColorPicker(self, colorPicker):
+            self.colorPicker = colorPicker
+
         def setButton(self, button):
             self.button = button
+
+        def setSelectedColor(self, h, s ,v ):
+            self.selectedH = h
+            self.selectedS = s
+            self.selectedV = v
 
         def updateCanvas(self):
             if self.canvas:
@@ -137,8 +150,14 @@ class Model:
     def addCanvas(self, canvas):
         self.instance.setCanvas(canvas)
 
+    def addColorPicker(self, colorPicker):
+        self.instance.setColorPicker(colorPicker)
+
     def addButton(self, button):
         self.instance.setButton(button)
+
+    def setSelectedColor(self, h, s ,v ):
+            self.instance.setSelectedColor(h, s ,v)
 
     def unite(self, selected):
         self.instance.unite(selected)
@@ -149,8 +168,9 @@ class Model:
     def delete(self, selected):
         self.instance.delete(selected)
 
-    def changeColor(self, selected, color):
-        self.instace.changeColor(selected, color)
+    def changeColor(self, selected):
+        self.instance.changeColor(selected)
+
 
     def changeSelection(self, selected):
         self.instance.changeSelection(selected)
